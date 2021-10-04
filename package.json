@@ -4,8 +4,12 @@
   "description": "nft management client",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "gh-pages -d dist"
   },
   "author": "Mikal Muhammad",
-  "license": "ISC"
+  "license": "ISC",
+  "homepage": "https://ibn5x.github.io/WalletMonsterNFTManager",
+  "dependencies": {
+    "gh-pages": "^3.2.3"
+  }
 }
