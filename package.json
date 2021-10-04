@@ -1,0 +1,11 @@
+{
+  "name": "walletmonsters",
+  "version": "1.0.0",
+  "description": "nft management client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mikal Muhammad",
+  "license": "ISC"
+}
