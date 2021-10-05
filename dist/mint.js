@@ -19,6 +19,8 @@ init = async () =>{
     //console.log(nftId);
     document.getElementById('token_id_input').value = nftId; //prepopulate id
     document.getElementById('address_input').value = accounts[0]; //prepopulate address
+
+    document.getElementById('monsterAddress_input').value = accounts[0]; //add
 }
 
 
@@ -37,6 +39,29 @@ mint = async () => {
         alert("Mint Completed");
         console.log(receipt);
     });
+}
+
+mintMonster = async () => {
+
+   // let tokenId = parseInt(document.getElementById('token_id_input').value);
+    let Name = document.getElementById('name_input').value;
+    let enjimonType = document.getElementById('enjimonType_input').value;
+
+    let Health = parseInt(document.getElementById('health_input').value);
+    let Defense = parseInt(document.getElementById('defense_input').value);
+    let Attack = parseInt(document.getElementById('attack_input').value);
+    let Endurance = parseInt(document.getElementById('endur_input').value);
+    let Level = parseInt(document.getElementById('level_input').value);
+
+    const accounts = await web3.eth.getAccounts();
+    const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
+
+    contract.methods.mintMonster(Name, Health , Defense, Attack, Endurance, Level, enjimonType ).send({from: accounts[0], value: 0})
+    .on("receipt", function(receipt){
+        alert("Mint Completed");
+        console.log(receipt);
+    });
+    
 }
 
 document.getElementById('submit_mint').onclick = mint;
