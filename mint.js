@@ -43,7 +43,7 @@ mint = async () => {
 
 mintMonster = async () => {
 
-   // let tokenId = parseInt(document.getElementById('token_id_input').value);
+  
     let Name = document.getElementById('name_input').value;
     let enjimonType = document.getElementById('enjimonType_input').value;
 
