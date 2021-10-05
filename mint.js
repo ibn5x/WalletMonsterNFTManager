@@ -2,9 +2,10 @@ Moralis.initialize("xXH1IL0ORWvCjl2vMfMmi1EpwhIrXE17mQjYJCRN"); // Application i
 Moralis.serverURL = "https://bpsygtsl1obp.moralishost.com:2053/server"; //Server url from moralis.io
 const CONTRACT_ADDRESS = "0x19A92f37e090a346cA5D226a5aa381035949dCdA";
 let web3; // set empty web3 object will initialzie in init. required to make calls to smart contract
+let currentUser;
 
 init = async () =>{
-    let currentUser = await Moralis.User.current();
+    currentUser = await Moralis.User.current();
 
     if(!currentUser){
         window.location.pathname = "./index.html"; 

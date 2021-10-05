@@ -2,7 +2,8 @@ Moralis.initialize("xXH1IL0ORWvCjl2vMfMmi1EpwhIrXE17mQjYJCRN"); // Application i
 Moralis.serverURL = "https://bpsygtsl1obp.moralishost.com:2053/server"; //Server url from moralis.io
 const CONTRACT_ADDRESS = "0x19A92f37e090a346cA5D226a5aa381035949dCdA";
 let currentUser;
-
+let wallet;
+let web3;
 
 getUserData = async () => {
     let accounts = currentUser.get('accounts');
@@ -20,36 +21,50 @@ getUserData = async () => {
 init = async () => {
 
     currentUser = await Moralis.User.current();
-
+    wallet = currentUser;
+    let ownedNFTs = [];
+    //let accounts = await web3.eth.getAccounts();
+    
+    web3 = await Moralis.Web3.enable(); //initiaizing web3 library via moralis
+    
+    
     if(!currentUser){
-        $('#btn-login').show();
-        $('#btn-enjimon').hide();
-        $('#btn-logout').hide();
-    }else if(currentUser){
-        $('#btn-login').hide();
-        $('#btn-enjimon').show();
-        $('#btn-logout').show(); 
+        window.location.pathname = "index.html"; 
+    }
+    alert("in order to feed, train or battle your enjimon, first input the id of the enjimon you wish to interact with");
+    const options = {address: CONTRACT_ADDRESS, chain: "rinkeby"};
+    let NFTs = await Moralis.Web3API.token.getNFTOwners(options);
 
-        const options = {address: CONTRACT_ADDRESS, chain: "rinkeby"};
-        let NFTs = await Moralis.Web3API.token.getAllTokenIds(options);
-       
-       let userData = await getUserData();
-        getCollection(NFTs, userData);
+    for(let i = 0; i < NFTs.result.length; i++){
+        
+        if(NFTs.result[i].owner_of == wallet.attributes.accounts[0]){
+            ownedNFTs.push(NFTs.result[i]);
+            
+        }
         
     }
-
+    console.log(ownedNFTs);
+    
+    
+      
+    let userData = await getUserData();
+    getCollection(ownedNFTs, userData);
+    //console.log(currentOwner);
+    //console.log(NFTs.result.length);
 }
 
-async function getCollection(NFTs, userData){
+
+
+async function getCollection(ownedNFTs, userData){
 
     let resultingData = [];
     let resData = [];
     let nftOwners = [];
     let nftIds = [];
 
-    for(let count = 0; count < NFTs.result.length; count++){
+    for(let count = 0; count < ownedNFTs.length; count++){
      
-        let nftId = NFTs.result[count].token_id;
+        let nftId = ownedNFTs[count].token_id;
         let num = 0;
         
         const options = { address: CONTRACT_ADDRESS, token_id: nftId, chain: "rinkeby" };
@@ -58,7 +73,7 @@ async function getCollection(NFTs, userData){
         let targetData = (tokenIdOwners.result[num].amount);
         let ownerData = (tokenIdOwners.result[num].owner_of);
         
-        let info = NFTs.result[count].metadata;
+        let info = ownedNFTs[count].metadata;
         let data = info;
         let obj = JSON.parse(data);
 
@@ -73,12 +88,12 @@ async function getCollection(NFTs, userData){
            
 }
 
-function renderInventory(NFTs, resData, nftOwners, nftIds, userData){
+function renderInventory(ownedNFTs, resData, nftOwners, nftIds, userData){
 
     const parent = document.getElementById("appManager");
 
-    for(let i = 0; 0 < NFTs.length; i++ ){
-        const nft = NFTs[i];
+    for(let i = 0; 0 < ownedNFTs.length; i++ ){
+        const nft = ownedNFTs[i];
         const resdata = resData[i];
         const nftowners = nftOwners[i];
         const nftids = nftIds[i];
@@ -102,9 +117,9 @@ function renderInventory(NFTs, resData, nftOwners, nftIds, userData){
                     <p class="card-text">amount: ${resdata}</p>
                     <p class="card-text">Owner: ${nftowners}</p>
                     <p class="card-text">Your Balance: ${trackerCount}</p>
-                    <a href="./mint.html?nftId=${nftids}" class="btn btn-primary">Mint</a>
-                    <a href="./burn.html?nftId=${nftids}" class="btn btn-primary">Burn</a>
-                    <a href="./transfer.html?nftId=${nftids}" class="btn btn-primary">Transfer</a>
+                    <a id="feed_btn" onclick="feed()" class="btn btn-primary">Feed</a>
+                    <a id="train_btn" onclick="train()" class="btn btn-primary">Train</a>
+                    <a id="battle_btn" onclick="battle()" class="btn btn-primary">Battle</a>
                 </div>
             </div>
         `;
@@ -118,53 +133,49 @@ function renderInventory(NFTs, resData, nftOwners, nftIds, userData){
 
 }
 
+feed = async () =>{
 
-login = async() => {
-    currentUser = await Moralis.User.current();
 
-    if(!currentUser){
+    let tokenId = parseInt(document.getElementById('monster_id_input').value);
 
-        Moralis.Web3.authenticate().then(function (currentUser) {
-            console.log(currentUser.get('ethAddress'))
-            alert("Login for user: " + currentUser.get('ethAddress'));
-        })
-
-      $('#btn-login').hide();
-
-      $('#btn-logout').show();   
-      $('#btn-enjimon').show();
-
-      //Get all NFTs owned by user
-      const options = {address: CONTRACT_ADDRESS, chain: "rinkeby"};
-     let NFTs = await Moralis.Web3API.token.getAllTokenIds(options);
-
-      getCollection(NFTs);
-      console.log(NFTs);
-        
-    }
+    const accounts = await web3.eth.getAccounts();
+    const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
     
+
+    contract.methods.feed(tokenId).send({from: accounts[0], value: 0})
+    .on("receipt", function(receipt){
+        alert("feeding Completed");
+        console.log(receipt);
+    });
+
 }
 
-logout = async() =>{  
+train = async () => {
 
-    await Moralis.User.logOut();
+    let tokenId = parseInt(document.getElementById('monster_id_input').value);
 
-    $('#btn-logout').hide();
-    $('#btn-enjimon').hide();
-    $('#btn-login').show();
-   
+    const accounts = await web3.eth.getAccounts();
+    const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
 
-   location.reload();   
-    alert("you have been signed out");
+    contract.methods.train(tokenId).send({from: accounts[0], value: 0})
+    .on("receipt", function(receipt){
+        alert("training Completed");
+        console.log(receipt);
+    });
+
 }
 
+function battle(){
+    alert("implementing battle functionality soon!");
+}
 
 function refreshContract(){
     location.reload(); 
 }
 
-document.getElementById('btn-login').onclick = login;
-document.getElementById('btn-logout').onclick = logout;
 document.getElementById('btn-smartContract').onclick = refreshContract;
+////document.getElementById('feed-btn').onclick = feed();
+//document.getElementById('train-btn').onclick = train;
+//document.getElementById('battle-btn').onclick = battle;
 
 init();
