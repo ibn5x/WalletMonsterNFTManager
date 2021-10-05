@@ -20,7 +20,7 @@ init = async () =>{
     document.getElementById('token_id_input').value = nftId; //prepopulate id
     document.getElementById('address_input').value = accounts[0]; //prepopulate address
 
-    document.getElementById('monsterAddress_input').value = accounts[0]; //add
+   
 }
 
 
