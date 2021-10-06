@@ -4,6 +4,7 @@ const CONTRACT_ADDRESS = "0x19A92f37e090a346cA5D226a5aa381035949dCdA";
 let currentUser;
 let wallet;
 let web3;
+let ownedId;
 
 getUserData = async () => {
     let accounts = currentUser.get('accounts');
@@ -18,20 +19,42 @@ getUserData = async () => {
     });
 }
 
+enjimonData = async () => {
+    
+    web3 = await Moralis.Web3.enable();
+
+    const accounts = await web3.eth.getAccounts();
+    const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
+ 
+    let details = await contract.methods.getTokenDetails(1).call({from: accounts[0]});
+    
+    //let name = details.enjimonName;
+
+    console.log("Name: " + details.enjimonName);
+    console.log("HP: " + details.healthPoints);
+    console.log("DEF: " + details.defense);
+    console.log("ATK: " + details.attack);
+    console.log("Endurance: " + details.endurance);
+    console.log("Starvation: " + details.lastMeal);
+    console.log("Train Time: " + details.lastTrained);
+    console.log("Level: " + details.level);
+
+}
+//enjimonData();
+
 init = async () => {
 
     currentUser = await Moralis.User.current();
     wallet = currentUser;
     let ownedNFTs = [];
-    //let accounts = await web3.eth.getAccounts();
-    
-    web3 = await Moralis.Web3.enable(); //initiaizing web3 library via moralis
-    
+
+    web3 = await Moralis.Web3.enable(); 
     
     if(!currentUser){
         window.location.pathname = "index.html"; 
     }
-    alert("in order to feed, train or battle your enjimon, first input the id of the enjimon you wish to interact with");
+
+    alert("in order to feed, train or battle your enjimon, first input the id of the enjimon you wish to interact with into input field");
     const options = {address: CONTRACT_ADDRESS, chain: "rinkeby"};
     let NFTs = await Moralis.Web3API.token.getNFTOwners(options);
 
@@ -40,17 +63,11 @@ init = async () => {
         if(NFTs.result[i].owner_of == wallet.attributes.accounts[0]){
             ownedNFTs.push(NFTs.result[i]);
             
-        }
-        
+        }   
     }
-    console.log(ownedNFTs);
-    
-    
-      
+   
     let userData = await getUserData();
     getCollection(ownedNFTs, userData);
-    //console.log(currentOwner);
-    //console.log(NFTs.result.length);
 }
 
 
@@ -88,37 +105,128 @@ async function getCollection(ownedNFTs, userData){
            
 }
 
-function renderInventory(ownedNFTs, resData, nftOwners, nftIds, userData){
+async function renderInventory(ownedNFTs, resData, nftOwners, nftIds, userData){
 
     const parent = document.getElementById("appManager");
+    
+    web3 = await Moralis.Web3.enable();
+    const accounts = await web3.eth.getAccounts();
+    const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
 
     for(let i = 0; 0 < ownedNFTs.length; i++ ){
         const nft = ownedNFTs[i];
         const resdata = resData[i];
         const nftowners = nftOwners[i];
         const nftids = nftIds[i];
-
+        
         let trackerCount = userData[nftids];
+        let details = await contract.methods.getTokenDetails(nftids).call({from: accounts[0]});
+
+        let died;
+        let now = new Date();
+        let maxTime = details.endurance;
+
+        let unixTimeNow = Math.floor(now.getTime() / 1000); //convert to seconds. solidity works in seconds. JS works in ms
+
+         //calc where we are between max time and death, rest time and rested
+         let timeLeft = ( parseInt(details.lastMeal) + parseInt(details.endurance) ) - unixTimeNow; //Health bar
+         let restLeft = ( parseInt(details.lastTrained) + 900 ) - unixTimeNow; //rest bar
+
+          //calc the percentage left now
+        let lifePercentageLeft = timeLeft / maxTime; //life
+        let restPercentageLeft = restLeft / maxTime; //rest
+        //test show where we are
+        console.log("life percentage left: " + lifePercentageLeft);
+        console.log("rest percentage left: " +  restPercentageLeft);
+
+        let lifePercentageString = (lifePercentageLeft * 100)  + "%";
+        let restPerecntageString = (restPercentageLeft * 100) + "%";
+
+        let canTrain = new Date( (parseInt(details.lastTrained) + 900) * 1000);
+        let deathTime = new Date( (parseInt(details.lastMeal) + parseInt(details.endurance)) * 1000);
+
+         //vital function calc logic
+         if(now > deathTime){
+            deathTime = "<b>DEAD</b>";
+            canTrain = "<div style='display:inline-block'><b>DEAD</b></div>";
+            died =" This Enjimon has died"; 
+        }
+
+        if(now > canTrain){
+            canTrain ="<b>Enjimon fully rested</b>"
+        }else
+        {
+            canTrain = canTrain;
+        }
+
+           //run everytime the alotted time hits.
+            let interval = setInterval(() => {
+            let now = new Date(); 
+            let maxTime = details.endurance; 
+            let unixTimeNow = Math.floor(now.getTime() / 1000); 
+            let timeLeft = ( parseInt(details.lastMeal) + parseInt(details.endurance) ) - unixTimeNow; 
+            let lifePercentageLeft = timeLeft / maxTime; 
+            let lifePercentageString = (lifePercentageLeft * 100)  + "%";
+            $(`#enjimon_${nftids} .life-bar`).css("width", lifePercentageString );
+
+            //if enjimon is dead stop function from executing
+            if(lifePercentageLeft < 0){
+               
+               clearInterval(interval);
+               $(`#enjimon_${nftids} .enjimon_img`).css("opacity", 0.2 ); 
+               $(`#enjimon_${nftids} .trainBtn`).css("display", "none" );
+               $(`#enjimon_${nftids} .feedBtn`).css("display", "none" );
+               $(`#enjimon_${nftids} .progress`).css("display", "none"); 
+               $(`#enjimon_${nftids} .enjimon_died`).css("display", "block" );
+
+               $(document).ready(function(){    
+                //Check if the current URL contains '#'
+                if(document.URL.indexOf("#")==-1){
+                    // Set the URL to whatever it was plus "#".
+                    url = document.URL+"#";
+                    location = "#";
+            
+                    //Reload the page
+                    location.forcedReload(true);
+                }
+            });
+            }
+
+        }, 5000);
+
         if(trackerCount === undefined){
             trackerCount = 0;
         }
 
         let htmlString = ` 
-            <div class="card" style=""> 
-                <video controls poster="${nft.image}" class="card-img-top" alt="...">
+            <div class="card" id="enjimon_${nftids}" style=""> 
+                <video controls poster="${nft.image}" class="card-img-top enjimon_img" alt="..."> 
                 <source src="${nft.image}" type="video/mp4">
                
                 
                 </video>
                 
                 <div class="card-body">
-                    <h5 class="card-title">${nft.name}</h5>
-                    <p class="card-text">${nft.description}</p>
-                    <p class="card-text">amount: ${resdata}</p>
-                    <p class="card-text">Owner: ${nftowners}</p>
+                    <h5 class="card-title">${details.enjimonName} <span><small>LVL: ${details.level}</small></span></h5>
+                    
+                    <p class="card-text">HP: ${details.healthPoints}</p>
+                    <p class="card-text">ATK: ${details.attack}</p>
+                    <p class="card-text">DEF: ${details.defense}</p>
+                    <p class="card-text">Endurance: ${details.endurance}</p>
+
+                    <p class="card-text">Starvation Time:  <span class="enjimon_starvation">${deathTime}</span></p>
+                    <p class="card-text">Fully Rested: <span class="enjimon_training">${canTrain}</span></p>
+                    <div class="enjimon_died" style="display: none"><b>Death:</b><span>${died}</span></div>
+                    <div class="progress" style="margin-bottom: 10px;">
+                        <div class="progress-bar life-bar" style="width: ${lifePercentageString};"></div>
+                    </div>
+
+                    <p class="card-text">#Existence: ${resdata}</p>
                     <p class="card-text">Your Balance: ${trackerCount}</p>
-                    <a id="feed_btn" onclick="feed()" class="btn btn-primary">Feed</a>
-                    <a id="train_btn" onclick="train()" class="btn btn-primary">Train</a>
+                    <p class="card-text">${nft.description}</p>
+                    <p class="card-text">Owner: ${nftowners}</p>
+                    <a id="feed_btn" onclick="feed()" class="btn btn-primary feedBtn">Feed</a>
+                    <a id="train_btn" onclick="train()" class="btn btn-primary trainBtn">Train</a>
                     <a id="battle_btn" onclick="battle()" class="btn btn-primary">Battle</a>
                 </div>
             </div>
