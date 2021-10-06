@@ -4,6 +4,7 @@ const CONTRACT_ADDRESS = "0x19A92f37e090a346cA5D226a5aa381035949dCdA";
 let web3; // set empty web3 object will initialzie in init. required to make calls to smart contract
 let currentUser;
 
+
 init = async () =>{
     currentUser = await Moralis.User.current();
 
@@ -13,12 +14,11 @@ init = async () =>{
 
     web3 = await Moralis.Web3.enable(); //initiaizing web3 library via moralis
     let accounts = await web3.eth.getAccounts();
-    console.log(accounts);
+    
 
     const urlParams = new URLSearchParams(window.location.search);
     const nftId = urlParams.get("nftId"); 
-    //console.log(nftId);
-    document.getElementById('token_id_input').value = nftId; //prepopulate id
+    
     document.getElementById('address_input').value = accounts[0]; //prepopulate address
 
    
@@ -28,14 +28,14 @@ init = async () =>{
 
 mint = async () => {
     
-    let tokenId = parseInt(document.getElementById('token_id_input').value);
+    
     let address = document.getElementById('address_input').value;
     let amount = parseInt(document.getElementById('amount_input').value);
     
     const accounts = await web3.eth.getAccounts(); //gets current metamask user
     const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
     
-    contract.methods.mint(address, tokenId, amount).send({from: accounts[0], value: 0})
+    contract.methods.mint(address, amount).send({from: accounts[0], value: 0})
     .on("receipt", function(receipt){
         alert("Mint Completed");
         console.log(receipt);
@@ -66,5 +66,6 @@ mintMonster = async () => {
 }
 
 document.getElementById('submit_mint').onclick = mint;
+document.getElementById('submit_mintMonster').onclick = mintMonster;
 
 init();

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script> 
+    <!--Web3 and moralis-->
+	<script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
+    <script src="https://unpkg.com/moralis@0.0.68/dist/moralis.js"></script>
+    <!--Font awesome-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+   
+    <link rel="shortcut icon" href="assets/Wallet MonstersLogo.png" type="image/x-icon">
+    <link rel="stylesheet" href="app.css">
+  
+    <style>
+        iframe {
+          float: left;
+          padding: 15px; 
+        }
+        
+    
+        </style>
+
+    <title>Wallet Monsters Manager: About</title>
+</head>
+<body>
+
+    <nav class="menu navbar navbar-expand-md navbar-light">
+        <a class="navbar-brand" href="./index.html"><b>About The Project</b></a>
+        <div class="navbar-collapse collapse justify-content-end">
+          <div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="./index.html" class="btn button_Nav btn-homepage btn-primary" style="margin-right:5px;">Back</a>
+                  </li>
+                <li class="nav-item">
+                    <a  href="https://www.walletmonsters.io" target="blank_" class="btn button_Nav btn-homepage btn-primary"  id="btn-website"  style="margin-right:5px;">Take Me to Website</a>
+                  </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+  
+      <div class="promo">
+        <div class="container">
+          <div class="banner">
+            <div style="display:flex; justify-content: center;"><img src="./assets/Wallet MonstersLogo.png" alt="" style="width: 300px; margin-top: 100px;"> </div>
+                <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Help
+            </button>
+            <br>
+            <p>Wallet Monsters NFT Manager</p>
+          </div>
+        </div>
+    </div>
+
+    <!--body-->
+
+    <div class="container">
+        <div class="row" id="appManager" style="margin-top: 100px; margin-bottom: 150px;">
+            <h2 style="text-align: center;">About The Project</h2>
+        
+            <div class="about" style="margin-top: 20px;">
+                <div class="videoOne" >
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/YqsyNqyL5VM" title="YouTube video player" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                   </iframe>    
+                   <br>
+                   <p>
+                    Wallet Monsters is an NFT collection of living digital assets that require attention, love, and care. Individual Wallet Monsters are called Enjimon,
+                    and they are indivisible ERC721 Non Fungible Tokens. Enjimon varies in type, abilities, and attributes. Users must care for their Enjimon
+                    through proper feeding to prevent an Immutable Death state. Immutable Death renders an Enjimon completely useless within its owner's 
+                    wallet; it can not be interacted with, traded, or sold. The benefits of proper care and training are an increase in Enjimons attributes 
+                    with each level up. In addition to the Wallet Monster collect and NFT Game DApp, holders can use the increased attributes to explore the
+                    Wallet Monsters' world, defeat enemies and earn ERC1155 artifacts. Interoperable web-based game framework powered by the enjin protocol 
+                    built with Moralis.io
+                </p>   
+                </div>    
+            </div>
+        </div>
+    </div>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    </body>
+    </html>

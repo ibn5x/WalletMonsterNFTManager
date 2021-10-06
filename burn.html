@@ -45,6 +45,10 @@
             <div style="display:flex; justify-content: center;"><img src="./assets/Wallet MonstersLogo.png" alt="" style="width: 300px; margin-top: 100px;"> </div>
             <br>
             <p>Wallet Monsters NFT Manager</p>
+               <!-- Button trigger modal -->
+               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#helpModal">
+                Help
+            </button>
           </div>
         </div>
     </div>
@@ -79,6 +83,31 @@
         </div>
     </div>
 
+    <!-- Modal -->
+<div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="helpModalLabel">Burn</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <p>
+        To burn your asset(s) insert the token id <small>(in most cases this will be prefiled)</small> 
+        of the asset your attempting to burn, <b>(you will only be able to destroy tokens you own)</b> followed 
+        by the amount. We have taken care to prefill the owner address input. Clicking the burn button will trigger 
+        your web3 wallet to have you verify this action by signing. You will then have to pay the gas fee TX as required
+        by the Ethereum Network.
+      </p>
+       
+      <small><b> <br> <br>Only Holder of asset can burn their token. Only contract owner can burn token supply</b></small> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
     
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
