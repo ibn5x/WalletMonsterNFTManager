@@ -1,6 +1,6 @@
 Moralis.initialize("xXH1IL0ORWvCjl2vMfMmi1EpwhIrXE17mQjYJCRN"); // Application id from moralis.io
 Moralis.serverURL = "https://bpsygtsl1obp.moralishost.com:2053/server"; //Server url from moralis.io
-const CONTRACT_ADDRESS = "0xe63D9D2928B836d1c4723172b4D4144A7A6aCF4c";
+const CONTRACT_ADDRESS = "0x7b2023861100E5dCb694f16c2c1F46bBf2bC85FB";
 let currentUser;
 let wallet;
 let web3;
