@@ -25,10 +25,12 @@ init = async () => {
         $('#btn-login').show();
         $('#btn-enjimon').hide();
         $('#btn-logout').hide();
+        $('#btn-enjimonDapp').hide();
     }else if(currentUser){
         $('#btn-login').hide();
         $('#btn-enjimon').show();
         $('#btn-logout').show(); 
+        $('#btn-enjimonDapp').show();
 
         const options = {address: CONTRACT_ADDRESS, chain: "rinkeby"};
         let NFTs = await Moralis.Web3API.token.getAllTokenIds(options);
@@ -99,7 +101,8 @@ function renderInventory(NFTs, resData, nftOwners, nftIds, userData){
                 <div class="card-body">
                     <h5 class="card-title">${nft.name}</h5>
                     <p class="card-text">${nft.description}</p>
-                    <p class="card-text">amount: ${resdata}</p>
+                    <p class="card-text"><b>ID: ${nftids}</b></p>
+                    <p class="card-text"># in Existence: ${resdata}</p>
                     <p class="card-text">Owner: ${nftowners}</p>
                     <p class="card-text">Your Balance: ${trackerCount}</p>
                     <a href="./mint.html?nftId=${nftids}" class="btn btn-primary">Mint</a>
@@ -133,6 +136,7 @@ login = async() => {
 
       $('#btn-logout').show();   
       $('#btn-enjimon').show();
+      $('#btn-enjimonDapp').show();
 
       //Get all NFTs owned by user
       const options = {address: CONTRACT_ADDRESS, chain: "rinkeby"};
@@ -151,6 +155,7 @@ logout = async() =>{
 
     $('#btn-logout').hide();
     $('#btn-enjimon').hide();
+    $('#btn-enjimonDapp').hide();
     $('#btn-login').show();
    
 
