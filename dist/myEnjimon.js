@@ -1,6 +1,6 @@
 Moralis.initialize("xXH1IL0ORWvCjl2vMfMmi1EpwhIrXE17mQjYJCRN"); // Application id from moralis.io
 Moralis.serverURL = "https://bpsygtsl1obp.moralishost.com:2053/server"; //Server url from moralis.io
-const CONTRACT_ADDRESS = "0x2E24361c12Fe350478587742C990b352Fa081809";
+const CONTRACT_ADDRESS = "0x6D6A7328A180973B7C733b5E93585953f33dF4E7";
 let currentUser;
 let wallet;
 let web3;
@@ -127,7 +127,7 @@ async function renderInventory(ownedNFTs, resData, nftOwners, nftIds, userData){
          if(now > deathTime){
             deathTime = "<b>DEAD</b>";
             canTrain = "<div style='display:inline-block'><b>DEAD</b></div>";
-            died =" This Enjimon has died"; 
+            died =" IMMUTABLE DEATH"; 
         }
 
         if(now > canTrain){
@@ -204,9 +204,9 @@ async function renderInventory(ownedNFTs, resData, nftOwners, nftIds, userData){
                     <p class="card-text">Your Balance: ${trackerCount}</p>
                     <p class="card-text">${nft.description} <br><b>ID: ${nftids}</b></p>
                     <p class="card-text">Owner: ${nftowners}</p>
-                    <a id="feed_btn" onclick="feed()" class="btn btn-primary feedBtn">Feed</a>
-                    <a id="train_btn" onclick="train()" class="btn btn-primary trainBtn">Train</a>
-                    <a id="battle_btn" onclick="battle()" class="btn btn-primary battleBtn">Battle</a>
+                    <a  onclick="feed()" class="btn btn-primary feedBtn">Feed</a>
+                    <a  onclick="train()" class="btn btn-primary trainBtn">Train</a>
+                    <a  onclick="battle()" class="btn btn-primary battleBtn">Battle</a>
                 </div>
             </div>
         `;
