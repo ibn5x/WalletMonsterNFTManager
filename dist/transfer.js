@@ -8,7 +8,7 @@ init = async () =>{
     currentUser = await Moralis.User.current();
 
     if(!currentUser){
-        window.location.pathname = "./index.html"; 
+        window.location.pathname = "./WalletMonsterNFTManager/index.html"; 
     }
     
     web3 = await Moralis.Web3.enable();

@@ -19,28 +19,6 @@ getUserData = async () => {
     });
 }
 
-enjimonData = async () => {
-    
-    web3 = await Moralis.Web3.enable();
-
-    const accounts = await web3.eth.getAccounts();
-    const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
- 
-    let details = await contract.methods.getTokenDetails(1).call({from: accounts[0]});
-    
-    //let name = details.enjimonName;
-
-    console.log("Name: " + details.enjimonName);
-    console.log("HP: " + details.healthPoints);
-    console.log("DEF: " + details.defense);
-    console.log("ATK: " + details.attack);
-    console.log("Endurance: " + details.endurance);
-    console.log("Starvation: " + details.lastMeal);
-    console.log("Train Time: " + details.lastTrained);
-    console.log("Level: " + details.level);
-
-}
-//enjimonData();
 
 init = async () => {
 
@@ -51,13 +29,13 @@ init = async () => {
     web3 = await Moralis.Web3.enable(); 
     
     if(!currentUser){
-        window.location.pathname = "index.html"; 
+        window.location.pathname = "./WalletMonsterNFTManager/index.html"; 
     }
 
-    alert("in order to feed, train or battle your enjimon, first input the id of the enjimon you wish to interact with into input field");
+   
     const options = {address: CONTRACT_ADDRESS, chain: "rinkeby"};
     let NFTs = await Moralis.Web3API.token.getNFTOwners(options);
-
+    alert("in order to feed, train or battle your enjimon, first input the id of the enjimon you wish to interact with into input field");
     for(let i = 0; i < NFTs.result.length; i++){
         
         if(NFTs.result[i].owner_of == wallet.attributes.accounts[0]){
@@ -176,6 +154,7 @@ async function renderInventory(ownedNFTs, resData, nftOwners, nftIds, userData){
                $(`#enjimon_${nftids} .enjimon_img`).css("opacity", 0.2 ); 
                $(`#enjimon_${nftids} .trainBtn`).css("display", "none" );
                $(`#enjimon_${nftids} .feedBtn`).css("display", "none" );
+               $(`#enjimon_${nftids} .battleBtn`).css("display", "none" );
                $(`#enjimon_${nftids} .progress`).css("display", "none"); 
                $(`#enjimon_${nftids} .enjimon_died`).css("display", "block" );
 
@@ -223,11 +202,11 @@ async function renderInventory(ownedNFTs, resData, nftOwners, nftIds, userData){
 
                     <p class="card-text">#Existence: ${resdata}</p>
                     <p class="card-text">Your Balance: ${trackerCount}</p>
-                    <p class="card-text">${nft.description}</p>
+                    <p class="card-text">${nft.description} <br><b>ID: ${nftids}</b></p>
                     <p class="card-text">Owner: ${nftowners}</p>
                     <a id="feed_btn" onclick="feed()" class="btn btn-primary feedBtn">Feed</a>
                     <a id="train_btn" onclick="train()" class="btn btn-primary trainBtn">Train</a>
-                    <a id="battle_btn" onclick="battle()" class="btn btn-primary">Battle</a>
+                    <a id="battle_btn" onclick="battle()" class="btn btn-primary battleBtn">Battle</a>
                 </div>
             </div>
         `;
