@@ -35,7 +35,7 @@ init = async () => {
    
     const options = {address: CONTRACT_ADDRESS, chain: "rinkeby"};
     let NFTs = await Moralis.Web3API.token.getNFTOwners(options);
-    alert("in order to feed, train or battle your enjimon, first input the id of the enjimon you wish to interact with into input field");
+
     for(let i = 0; i < NFTs.result.length; i++){
         
         if(NFTs.result[i].owner_of == wallet.attributes.accounts[0]){
@@ -261,8 +261,6 @@ function refreshContract(){
 }
 
 document.getElementById('btn-smartContract').onclick = refreshContract;
-////document.getElementById('feed-btn').onclick = feed();
-//document.getElementById('train-btn').onclick = train;
-//document.getElementById('battle-btn').onclick = battle;
+
 
 init();

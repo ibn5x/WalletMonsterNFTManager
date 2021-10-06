@@ -45,6 +45,11 @@
             <div style="display:flex; justify-content: center;"><img src="./assets/Wallet MonstersLogo.png" alt="" style="width: 300px; margin-top: 100px;"> </div>
             <br>
             <p>Wallet Monster NFT Manager</p>
+            <br>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#helpModal">
+                Help
+            </button>
           </div>
         </div>
     </div>
@@ -77,8 +82,30 @@
                 </div>
             </div>
         </div>                
-        
     </div>
+
+<!-- Modal -->
+<div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="helpModalLabel">Transfer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Only the holder of the digital asset can freely transfer thier asset. To do so, insert the token id 
+       <small>(in most cases this will be prefiled)</small> of the asset your attempting to trade, the amount,
+       and recipient address then hit the transfer button. You will be prompted to verify this transaction by signing
+       with your Web3 based wallet and paying any gas tx fee.
+       
+      <small><b> <br> <br>Dead Enjimon cannot be transfered out of wallet</b></small> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
     
 
