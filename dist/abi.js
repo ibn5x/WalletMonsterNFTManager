@@ -1,5 +1,4 @@
 const contractAbi = [
-
 	{
 		"anonymous": false,
 		"inputs": [
@@ -140,38 +139,6 @@ const contractAbi = [
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "_currentHealth",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "blocktime",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "_currentTime",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "blocktime",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "address",
 				"name": "account",
 				"type": "address"
@@ -271,19 +238,19 @@ const contractAbi = [
 						"type": "string"
 					},
 					{
-						"internalType": "uint8",
+						"internalType": "uint256",
 						"name": "healthPoints",
-						"type": "uint8"
+						"type": "uint256"
 					},
 					{
-						"internalType": "uint8",
+						"internalType": "uint256",
 						"name": "defense",
-						"type": "uint8"
+						"type": "uint256"
 					},
 					{
-						"internalType": "uint8",
+						"internalType": "uint256",
 						"name": "attack",
-						"type": "uint8"
+						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
@@ -291,9 +258,9 @@ const contractAbi = [
 						"type": "uint256"
 					},
 					{
-						"internalType": "uint8",
+						"internalType": "uint256",
 						"name": "level",
-						"type": "uint8"
+						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
@@ -352,11 +319,6 @@ const contractAbi = [
 			},
 			{
 				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
 			}
@@ -374,19 +336,19 @@ const contractAbi = [
 				"type": "string"
 			},
 			{
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "healthPoints",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "defense",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "attack",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
@@ -394,9 +356,9 @@ const contractAbi = [
 				"type": "uint256"
 			},
 			{
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "level",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
 				"internalType": "string",
@@ -578,5 +540,3 @@ const contractAbi = [
 		"type": "function"
 	}
 ];
-
-	
