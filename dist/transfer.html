@@ -81,7 +81,28 @@
                     </div>                 
                 </div>
             </div>
-        </div>                
+        </div> 
+        
+        <div class="row" id="tokenManager" style="margin-top: 100px; margin-bottom: 50px;">
+          <h3>Transfer Token</h3>
+          <div class="col col-md-12">
+              <div>
+                  <div>
+                      <label>Amount &nbsp </label>
+                      <input type="number" id="tokenAmount_input" style="margin-bottom: 5px;">
+                  </div>
+  
+                  <div>
+                      <label for="">Address &nbsp</label>
+                      <input type="text" id="userAddress_input" style="margin-bottom: 10px;">
+                  </div>
+  
+                  <div>
+                      <button class="btn btn-primary" id="submit_tokenTransfer" style="display: flex; justify-content: center;">Transfer</button>
+                  </div>                 
+              </div>
+          </div>
+      </div> 
     </div>
 
 <!-- Modal -->
@@ -111,6 +132,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="transfer.js"></script>
+    <script src="abi.js"></script>
     </body>
     </html>
    
