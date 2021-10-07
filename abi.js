@@ -765,5 +765,4 @@ const contractAbi = [
 		"type": "function"
 	}
 ];
-
 	
