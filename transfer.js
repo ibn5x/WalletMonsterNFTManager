@@ -36,6 +36,23 @@ transfer = async () => {
     console.log(result);
 }
 
+transferToken = async () => {
+    let enjimonToken = 0;
+    let amountOfTokens = parseInt(document.getElementById('tokenAmount_input').value);
+    let userAddress = document.getElementById('userAddress_input').value;
+
+    const accounts = await web3.eth.getAccounts(); //gets current metamask user
+    const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
+
+    contract.methods.safeTransferFrom(accounts[0], userAddress, enjimonToken, amountOfTokens,accounts[0]).send({from: accounts[0], value: 0})
+    .on("receipt", function(receipt){
+        alert("transfer Completed");
+        console.log(receipt);
+    });
+}
+
 document.getElementById('submit_transfer').onclick = transfer;
+document.getElementById('submit_tokenTransfer').onclick = transferToken;
+
 
 init();
