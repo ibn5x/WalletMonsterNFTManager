@@ -92,7 +92,7 @@ function renderInventory(NFTs, resData, nftOwners, nftIds, userData){
 
         let htmlString = ` 
             <div class="card" style=""> 
-                <video controls poster="${nft.image}" class="card-img-top" alt="...">
+                <video controls autoplay loop poster="${nft.image}" class="card-img-top" alt="...">
                 <source src="${nft.image}" type="video/mp4">
                
                 
