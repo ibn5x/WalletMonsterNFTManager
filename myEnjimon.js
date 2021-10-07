@@ -179,7 +179,7 @@ async function renderInventory(ownedNFTs, resData, nftOwners, nftIds, userData){
 
         let htmlString = ` 
             <div class="card" id="enjimon_${nftids}" style=""> 
-                <video controls poster="${nft.image}" class="card-img-top enjimon_img" alt="..."> 
+                <video controls autoplay loop poster="${nft.image}" class="card-img-top enjimon_img" alt="..."> 
                 <source src="${nft.image}" type="video/mp4">
                
                 
