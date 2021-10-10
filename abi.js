@@ -1,5 +1,5 @@
 const contractAbi = [
-
+	
 	{
 		"anonymous": false,
 		"inputs": [
