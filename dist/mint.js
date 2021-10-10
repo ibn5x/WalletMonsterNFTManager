@@ -1,6 +1,6 @@
 Moralis.initialize("yAbW3JxCBauoRI9Au5aie4dhV6uQ0eu6jFmAjCb3"); // Application id from moralis.io
 Moralis.serverURL = "https://ivsd7jh7u65y.moralishost.com:2053/server"; //Server url from moralis.io
-const CONTRACT_ADDRESS = "0xC98E567e2094c22ab2124d8FeC962a6d7B2495A0";
+const CONTRACT_ADDRESS = "0x279B78674A06D2b3565B31190C28A866bA7673c8";
 let web3; // set empty web3 object will initialzie in init. required to make calls to smart contract
 let currentUser;
 
@@ -47,6 +47,7 @@ mintMonster = async () => {
   
     let Name = document.getElementById('name_input').value;
     let enjimonType = document.getElementById('enjimonType_input').value;
+    let Sex = document.getElementById('enjimonSex_input').value;
 
     let Health = parseInt(document.getElementById('health_input').value);
     let Defense = parseInt(document.getElementById('defense_input').value);
@@ -57,7 +58,7 @@ mintMonster = async () => {
     const accounts = await web3.eth.getAccounts();
     const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
 
-    contract.methods.mintMonster(Name, Health , Defense, Attack, Endurance, Level, enjimonType ).send({from: accounts[0], value: 0})
+    contract.methods.mintMonster(Name, Health , Defense, Attack, Endurance, Level, enjimonType, Sex ).send({from: accounts[0], value: 0})
     .on("receipt", function(receipt){
         alert("Mint Completed");
         console.log(receipt);

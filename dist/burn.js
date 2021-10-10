@@ -1,7 +1,7 @@
 
 Moralis.initialize("yAbW3JxCBauoRI9Au5aie4dhV6uQ0eu6jFmAjCb3"); // Application id from moralis.io
 Moralis.serverURL = "https://ivsd7jh7u65y.moralishost.com:2053/server"; //Server url from moralis.io
-const CONTRACT_ADDRESS = "0xC98E567e2094c22ab2124d8FeC962a6d7B2495A0";
+const CONTRACT_ADDRESS = "0x279B78674A06D2b3565B31190C28A866bA7673c8";
 let currentUser;
 
 

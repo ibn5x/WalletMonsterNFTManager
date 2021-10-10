@@ -1,4 +1,5 @@
 const contractAbi = [
+
 	{
 		"anonymous": false,
 		"inputs": [
@@ -573,11 +574,6 @@ const contractAbi = [
 				"internalType": "string",
 				"name": "enjimonType",
 				"type": "string"
-			},
-			{
-				"internalType": "bool",
-				"name": "breeding",
-				"type": "bool"
 			},
 			{
 				"internalType": "string",
