@@ -36,7 +36,7 @@ init = async () => {
     const options = {address: CONTRACT_ADDRESS, chain: "rinkeby"};
     let NFTs = await Moralis.Web3API.token.getNFTOwners(options);
 
-    for(let i = 0; i < NFTs.result.length; i++){
+    for(let i = 1; i < NFTs.result.length; i++){
         
         if(NFTs.result[i].owner_of == wallet.attributes.accounts[0]){
             ownedNFTs.push(NFTs.result[i]);
@@ -91,7 +91,7 @@ async function renderInventory(ownedNFTs, resData, nftOwners, nftIds, userData){
     const accounts = await web3.eth.getAccounts();
     const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
 
-    for(let i = 1; 1 < ownedNFTs.length; i++ ){
+    for(let i = 1; 1 <= ownedNFTs.length; i++ ){
         const nft = ownedNFTs[i];
         const resdata = resData[i];
         const nftowners = nftOwners[i];
@@ -166,7 +166,7 @@ async function renderInventory(ownedNFTs, resData, nftOwners, nftIds, userData){
                     location = "#";
             
                     //Reload the page
-                    location.forcedReload(true);
+                   // location.forcedReload(true);
                 }
             });
             }

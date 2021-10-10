@@ -84,13 +84,14 @@ function renderInventory(NFTs, resData, nftOwners, nftIds, userData){
         const resdata = resData[i];
         const nftowners = nftOwners[i];
         const nftids = nftIds[i];
-
+       
         let trackerCount = userData[nftids];
         if(trackerCount === undefined){
             trackerCount = 0;
         }
 
         let htmlString = ` 
+       
             <div class="card" style=""> 
                 <video controls autoplay loop poster="${nft.image}" class="card-img-top" alt="...">
                 <source src="${nft.image}" type="video/mp4">
@@ -102,6 +103,7 @@ function renderInventory(NFTs, resData, nftOwners, nftIds, userData){
                     <h5 class="card-title">${nft.name}</h5>
                     <p class="card-text">${nft.description}</p>
                     <p class="card-text"><b>ID: ${nftids}</b></p>
+                  
                     <p class="card-text"># in Existence: ${resdata}</p>
                     <p class="card-text">Owner: ${nftowners}</p>
                     <p class="card-text">Your Balance: ${trackerCount}</p>
