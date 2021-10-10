@@ -1,6 +1,6 @@
-Moralis.initialize("iQb532KKk6S0N7tsWrBBNywP8ogQBwN2Yn1B8c32"); // Application id from moralis.io
-Moralis.serverURL = "https://4u696glmpqat.moralishost.com:2053/server"; //Server url from moralis.io
-const CONTRACT_ADDRESS = "0xB2feC5D28368dc9A95cb2F808909Ce9479F58b91";
+Moralis.initialize("yAbW3JxCBauoRI9Au5aie4dhV6uQ0eu6jFmAjCb3"); // Application id from moralis.io
+Moralis.serverURL = "https://ivsd7jh7u65y.moralishost.com:2053/server"; //Server url from moralis.io
+const CONTRACT_ADDRESS = "0xC98E567e2094c22ab2124d8FeC962a6d7B2495A0";
 let currentUser;
 let web3; 
 

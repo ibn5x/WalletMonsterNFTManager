@@ -1,5 +1,4 @@
 const contractAbi = [
-
 	{
 		"anonymous": false,
 		"inputs": [
@@ -260,31 +259,6 @@ const contractAbi = [
 			},
 			{
 				"indexed": false,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "nurseryTransfer",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": false,
 				"internalType": "uint256",
 				"name": "tokenID",
 				"type": "uint256"
@@ -501,6 +475,16 @@ const contractAbi = [
 						"internalType": "string",
 						"name": "enjimonType",
 						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "breading",
+						"type": "bool"
+					},
+					{
+						"internalType": "string",
+						"name": "sex",
+						"type": "string"
 					}
 				],
 				"internalType": "struct WalletMonsters.Enjimon",
@@ -588,6 +572,16 @@ const contractAbi = [
 			{
 				"internalType": "string",
 				"name": "enjimonType",
+				"type": "string"
+			},
+			{
+				"internalType": "bool",
+				"name": "breeding",
+				"type": "bool"
+			},
+			{
+				"internalType": "string",
+				"name": "sex",
 				"type": "string"
 			}
 		],
@@ -765,4 +759,3 @@ const contractAbi = [
 		"type": "function"
 	}
 ];
-	
