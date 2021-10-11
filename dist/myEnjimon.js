@@ -91,7 +91,7 @@ async function renderInventory(ownedNFTs, resData, nftOwners, nftIds, userData){
     const accounts = await web3.eth.getAccounts();
     const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
 
-    for(let i = 1; 1 <= ownedNFTs.length; i++ ){
+    for(let i = 1; 1 < ownedNFTs.length; i++ ){
         const nft = ownedNFTs[i];
         const resdata = resData[i];
         const nftowners = nftOwners[i];
